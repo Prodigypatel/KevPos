@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./KevPOS/backend
+    container_name: kevpos_backend
+    restart: always
+    volumes:
+      - ./KevPOS/backend:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: kevpos_db
+    restart: always
+    environment:
+      POSTGRES_DB: kevpos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  frontend:
+    build: ./KevPOS/frontend
+    container_name: kevpos_frontend
+    restart: always
+    volumes:
+      - ./KevPOS/frontend:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
+
+volumes:
+  postgres_data:
