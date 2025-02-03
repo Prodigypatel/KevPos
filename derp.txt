@@ -1,0 +1,7 @@
+🛠️ Install Dependencies on Windows
+Download & Install:
+Git
+Docker Desktop
+Node.js
+Composer
+PostgreSQL
